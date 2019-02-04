@@ -1,0 +1,50 @@
+<div class="card" >
+  <div class="card-header">
+    <h1 [style.color]="nameColor" [class.isActive]="isActive">
+      <button type="button" (click)="left()">&lt;</button>
+      {{ customer.name.toUpperCase() }}
+      <ng-container [ngSwitch]="customer.type">
+        <ng-container *ngSwitchCase="CustomerType.Standard">*</ng-container>
+        <ng-container *ngSwitchCase="CustomerType.Premium">**</ng-container>
+        <ng-container *ngSwitchCase="CustomerType.VIP">***</ng-container>
+        <ng-container *ngSwitchDefault>nieznany typ</ng-container>
+      </ng-container>
+      <button type="button" (click)="right()">&gt;</button>
+    </h1>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-sm-8">
+        <p appHighlight>{{ customer.age }}</p>
+        <p>{{ customer.description }}</p>
+        <p>{{ customer.address.street }}, {{ customer.address.houseNumber }}, {{ customer.address.city }}</p>
+
+        <ul>
+          <li *ngFor="let category of customer.categories; let oddCategory = odd" [class.oddCategory]="oddCategory">{{
+            category | capitalize }} {{ oddCategory }}</li>
+        </ul>
+        <button type="button" class="btn btn-primary" (click)="this.isActive = !this.isActive">Przelacz
+          podkreslenie</button>
+        <button type="button" class="btn btn-primary" (click)="changeColor()">Przelacz kolor</button>
+        <br>
+        <input type="text" [(ngModel)]="name" [ngModelOptions]="{updateOn: 'blur'}" />
+        <br>
+        <input #nameInput type="text" [value]="customer.name" (input)="customer.name = nameInput.value" />
+      </div>
+      <div class="col-sm-4">
+        <ng-container *ngIf="showPhoto; then photo else nophoto"></ng-container>
+        <ng-template #photo>
+          <img [src]="customer.photoUrl"><br>
+        </ng-template>
+        <ng-template #nophoto>
+          <p>Zdjecie ukryte</p>
+        </ng-template>
+        <div class="checkbox">
+          <label><input type="checkbox" [(ngModel)]="showPhoto">Pokaz zdjecie</label>
+        </div>
+        <p>{{ counter }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- <pre>{{ customer | json }}</pre> -->

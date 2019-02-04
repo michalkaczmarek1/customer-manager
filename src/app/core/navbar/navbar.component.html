@@ -1,0 +1,19 @@
+<div class="card">
+  <div class="card-body">
+    <ul class="nav">
+      <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+        <a class="nav-link" routerLink="customers">Klienci</a>
+      </li>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" routerLink="customers/add">Dodaj klienta</a>
+      </li>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" routerLink="contracts">Umowy</a>
+      </li>
+    </ul>
+    <form class="navbar-form navbar-right">
+      <button type="button" class="btn btn-default" (click)="authService.login()" *ngIf="!authService.isLogged">Zaloguj</button>
+      <button type="button" class="btn btn-default" (click)="authService.logout()" *ngIf="authService.isLogged">Wyloguj</button>
+    </form>
+  </div>
+</div>

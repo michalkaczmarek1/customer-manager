@@ -1,0 +1,42 @@
+<div class="card">
+  <div class="card-header">
+    Dodaj klienta
+  </div>
+  <div class="card-body">
+    <form #customerForm="ngForm" (ngSubmit)="add(customerForm)">
+      <div class="form-group">
+        <label for="name">Nazwa klienta</label>
+        <input required type="text" minlength="5" maxlength="20" class="form-control" id="name" [(ngModel)]="name" name="name" #nameInput #nameModel="ngModel"/>
+        <pre>{{ nameInput.className }}</pre>
+        <div class="alert alert-danger" *ngIf="nameModel.invalid && (nameModel.touched || nameModel.dirty)">
+          <div *ngIf="nameModel.errors.required">
+            Nazwa jest wymagana
+          </div>
+          <div *ngIf="nameModel.errors.minlength">
+              Nazwa musi miec co najmniej 5 znakow
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="age">Wiek</label>
+        <input required type="number" class="form-control" id="age" [(ngModel)]="age" name="age" #ageInput #ageModel="ngModel"/>
+        <div class="alert alert-danger" *ngIf="ageModel.invalid && ageModel.touched">
+          Wiek jest wymagany
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="type">Typ</label>
+        <select required class="form-control" [(ngModel)]="type" name="type" #typeInput #typeModel="ngModel">
+          <option [value]="CustomerType.Standard">Standard</option>
+          <option [value]="CustomerType.Premium">Premium</option>
+          <option [value]="CustomerType.VIP">VIP</option>
+        </select>
+        <div class="alert alert-danger" *ngIf="typeModel.invalid && typeModel.touched">
+          Typ klienta jest wymagany
+        </div>
+      </div>
+      <button type="submit" class="btn btn-success" [disabled]="!customerForm.form.valid">Dodaj</button>
+      <button type="button" class="btn btn-default" (click)="customerForm.resetForm()" [disabled]="!customerForm.dirty">Resetuj</button>
+    </form>
+  </div>
+</div>
